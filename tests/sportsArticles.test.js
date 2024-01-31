@@ -21,6 +21,8 @@ test.describe('Sports Articles Functionality', () => {
 
     test('Should retrieve first and last sports article headings', async () => {
         const headings = await bbcSportPage.getFirstAndLastSportsArticleHeadings();
+        console.log("News Headings:");
+        console.log(headings);
         expect(headings).toHaveProperty('firstHeading');
         expect(headings).toHaveProperty('lastHeading');
     });

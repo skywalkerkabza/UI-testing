@@ -18,10 +18,18 @@ class BBCSportPage {
             await this.page.waitForSelector('//*[@id="u5794706692510346"]/div/div[3]/div/div/span/div', { state: 'attached' });
 
             const teamNames = await this.page.evaluate(() => {
-                const teamElements = document.querySelectorAll('.qa-match-block .sp-c-fixture__team-name');
-                return Array.from(teamElements).map(team => team.textContent.trim());
+                const teamElements = document.querySelectorAll('.sp-c-fixture__team-name-wrap');
+                // Adding each team to anrray to iterate through the list later
+                return Array.from(teamElements).map(team => {
+                    
+                    const fullTeamNameElement = team.querySelector('.qa-full-team-name');
+                    if (fullTeamNameElement) {
+                        return fullTeamNameElement.textContent.trim();
+                    }
+                    return null;
+                }).filter(name => name !== null); //Gaurding for it the list have empty or null team names
             });
-
+    
             return teamNames;
         } catch (error) {
             console.error("Error getting team names playing today:", error);

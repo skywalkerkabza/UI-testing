@@ -22,8 +22,11 @@ test.describe('Login Functionality', () => {
     test('Should display error message for invalid login', async () => {
         await bbcSportPage.signIn('invalid_username');
         const errorMessage = await bbcSportPage.getErrorMessage();
+        console.log("Error message displayed for invalid username:");
+        console.log(errorMessage);
         expect(errorMessage).toContain('We don’t recognise that email or username. You can try again or register for an account');
+        
     });
-});
+})
 
 
