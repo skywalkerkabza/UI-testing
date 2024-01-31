@@ -1,5 +1,3 @@
-// login.test.js
-
 const { test, expect } = require('@playwright/test');
 const BBCSportPage = require('../pages/bbcSportPage');
 
