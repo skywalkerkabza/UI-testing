@@ -1,14 +1,22 @@
 const { test, expect } = require('@playwright/test');
 const BBCSportPage = require('../pages/bbcSportPage');
 
-test('Verify negative login scenarios', async ({ page }) => {
-    const bbcSportPage = new BBCSportPage(page);
-    await bbcSportPage.signIn('invalidusername');
+test.describe('Login Functionality', () => {
+    let page;
+    let bbcSportPage;
 
-    const errorMessage = await bbcSportPage.getErrorMessage();
-    console.log("Error message:", errorMessage);
+    test.beforeEach(async ({ browser }) => {
+        page = await browser.newPage();
+        bbcSportPage = new BBCSportPage(page);
+    });
 
-    expect(errorMessage).toContain('Expected error message');
+    test.afterEach(async () => {
+        await page.close();
+    });
+
+    test('Should display error message for invalid login', async () => {
+        await bbcSportPage.signIn('invalid_username');
+        const errorMessage = await bbcSportPage.getErrorMessage();
+        expect(errorMessage).toContain('We don’t recognise that email or username. You can try again or register for an account');
+    });
 });
-
-

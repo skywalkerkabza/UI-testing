@@ -1,13 +1,22 @@
 const { test, expect } = require('@playwright/test');
 const BBCSportPage = require('../pages/bbcSportPage');
 
-test('Read and output sports articles headings', async ({ page }) => {
-    const bbcSportPage = new BBCSportPage(page);
-    const { firstHeading, lastHeading } = await bbcSportPage.getFirstAndLastSportsArticleHeadings();
+test.describe('Sports Articles Functionality', () => {
+    let page;
+    let bbcSportPage;
 
-    console.log("First sports article heading:", firstHeading);
-    console.log("Last sports article heading:", lastHeading);
+    test.beforeEach(async ({ browser }) => {
+        page = await browser.newPage();
+        bbcSportPage = new BBCSportPage(page);
+    });
 
-    expect(firstHeading).toBeDefined();
-    expect(lastHeading).toBeDefined();
+    test.afterEach(async () => {
+        await page.close();
+    });
+
+    test('Should retrieve first and last sports article headings', async () => {
+        const headings = await bbcSportPage.getFirstAndLastSportsArticleHeadings();
+        expect(headings).toHaveProperty('firstHeading');
+        expect(headings).toHaveProperty('lastHeading');
+    });
 });
