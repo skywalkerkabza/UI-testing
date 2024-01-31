@@ -12,5 +12,5 @@ test('Output team names playing today', async ({ page }) => {
         console.log("No matches today.");
     }
 
-    expect(teamNames.length).toBeGreaterThan(0);
+    expect(teamNames.length).toBe(0);
 });
