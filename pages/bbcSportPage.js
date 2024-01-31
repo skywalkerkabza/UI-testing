@@ -28,14 +28,13 @@ class BBCSportPage {
             throw error;
         }
     }
-
-    async searchForSportsArticles() {
+async searchForSportsArticles() {
         try {
             await this.page.goto('https://www.bbc.co.uk/sport');
-            await this.page.waitForSelector('input#orb-search-q');
-            await this.page.click('input#orb-search-q');
-            await this.page.fill('input#orb-search-q', 'sports');
-            await this.page.press('input#orb-search-q', 'Enter');
+            await this.page.waitForSelector('.ssrcss-1tt7th2-SearchText.e1gviwgp16');
+            await this.page.click('.ssrcss-1tt7th2-SearchText.e1gviwgp16');
+            await this.page.fill('.ssrcss-1escyk9-StyledInput.e1ld3nu72', 'sports');
+            await this.page.click('.ssrcss-1n85k5b-Button');
             await this.page.waitForNavigation();
         } catch (error) {
             console.error("Error searching for sports articles:", error);
@@ -43,13 +42,13 @@ class BBCSportPage {
         }
     }
 
-    async getFirstAndLastSportsArticleHeadings() {
+async getFirstAndLastSportsArticleHeadings() {
         try {
             await this.searchForSportsArticles();
-            await this.page.waitForSelector('.sp-c-top-stories');
+            await this.page.waitForSelector('.ssrcss-1020bd1-Stack.e1y4nx260');
 
             const headings = await this.page.evaluate(() => {
-                const articleHeadings = document.querySelectorAll('.sp-c-top-stories h3');
+                const articleHeadings = document.querySelectorAll('.ssrcss-d9gbsd-Promo.e1vyq2e80');
                 const firstHeading = articleHeadings[0].textContent.trim();
                 const lastHeading = articleHeadings[articleHeadings.length - 1].textContent.trim();
                 return { firstHeading, lastHeading };
