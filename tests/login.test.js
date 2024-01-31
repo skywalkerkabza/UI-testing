@@ -3,7 +3,7 @@ const BBCSportPage = require('../pages/bbcSportPage');
 
 test('Verify negative login scenarios', async ({ page }) => {
     const bbcSportPage = new BBCSportPage(page);
-    await bbcSportPage.signIn('invalidusername', 'invalidpassword');
+    await bbcSportPage.signIn('invalidusername');
 
     const errorMessage = await bbcSportPage.getErrorMessage();
     console.log("Error message:", errorMessage);
