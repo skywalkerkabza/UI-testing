@@ -15,7 +15,7 @@ class BBCSportPage {
     async getTeamNamesPlayingToday() {
         try {
             await this.navigateToFootballScoresAndFixtures();
-            await this.page.waitForSelector('.qa-match-block', { state: 'attached' });
+            await this.page.waitForSelector('//*[@id="u5794706692510346"]/div/div[3]/div/div/span/div', { state: 'attached' });
 
             const teamNames = await this.page.evaluate(() => {
                 const teamElements = document.querySelectorAll('.qa-match-block .sp-c-fixture__team-name');
