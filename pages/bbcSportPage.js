@@ -45,6 +45,7 @@ class BBCSportPage {
 
     async clickSignIn() {
         try {
+            await this.page.goto('https://www.bbc.co.uk/sport')
             await this.page.waitForSelector('.ssrcss-qgttmg-AccountText', { visible: true });
             await this.page.click('.ssrcss-qgttmg-AccountText');
         } catch (error) {
